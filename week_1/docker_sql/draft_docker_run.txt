@@ -1,0 +1,40 @@
+run postgres container:
+winpty docker run -it \
+-e POSTGRES_USER="root"\
+-e POSTGRES_PASSWORD="root" \
+-e POSTGRES_DB="ny_taxi" \
+-v D://Data//courses//Data_Engineering_Zoomcamp//week_1//docker_sql//ny_taxi_postgers_data:/var/lib/postgresql/data 
+-p 5432:5432 \
+--network=pg-network \
+--name=pg-database postgres:13 
+
+connect to the database with pgcli clinet:
+winpty pgcli postgresql://root:root@localhost:5432/ny_taxi
+
+run pgamin container:
+winpty docker run -it \
+ -e PGADMIN_DEFAULT_EMAIL="admin@admin.com" \
+ -e PGADMIN_DEFAULT_PASSWORD="root" \ 
+ -p 8080:80 \
+ --network=pg-network \
+ --name pgadmin dpage/pgadmin4
+
+build the image that have the python script and then 
+run the container with docker:
+
+  docker build -t taxi_ingest:v001 .
+
+  docker run -it \
+  --network pg-network\
+  taxi_ingest:v001 \
+  --user=root \
+  --password=root \
+  --host=pg-database \
+  --port=5432 \
+  --db=ny_taxi \
+  --table=yellow_taxi_data \
+  --url= ${URL} //here replace ${URL} with your link to the data 
+
+ 
+
+
