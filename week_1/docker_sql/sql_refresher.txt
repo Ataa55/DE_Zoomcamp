@@ -1,0 +1,59 @@
+select 
+	tpep_pickup_datetime,
+	tpep_dropoff_datetime,
+	total_amount,
+	concat(zpu."Borough", ' / ',zpu."Zone"),
+	concat(zlu."Borough", ' / ',zlu."Zone")
+from 
+	public.yellow_taxi_data t,
+	zones zpu,
+	zones zlu
+where
+	t."PULocationID" = zpu."LocationID"
+and
+	t."DOLocationID" = zpu."LocationID"
+
+limit 100;
+select 
+	tpep_pickup_datetime,
+	tpep_dropoff_datetime,
+	total_amount,
+	concat(zpu."Borough", ' / ',zpu."Zone"),
+	concat(zlu."Borough", ' / ',zlu."Zone")
+from 
+	public.yellow_taxi_data t 
+join
+	zones zpu
+	on 
+	t."PULocationID" = zpu."LocationID"
+join 	
+	zones zlu
+	on
+	t."DOLocationID" = zlu."LocationID"
+
+limit 100;
+
+select 
+	cast(tpep_dropoff_datetime as date) as day,
+	count(*) as trips_count
+from 
+	public.yellow_taxi_data
+group by 
+	cast(tpep_dropoff_datetime as date)
+order by 
+	trips_count desc;
+
+select 
+	cast(tpep_dropoff_datetime as date) as day,
+	"DOLocationID",
+	max(passenger_count),
+	max(total_amount),
+	count(*) as trips_count
+from 
+	public.yellow_taxi_data
+group by 
+	1, 2
+order by 
+	day asc;
+
+

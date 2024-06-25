@@ -14,6 +14,8 @@ services:
     
     ports:
       - "5432:5432"
+    networks:
+      - pg-network
     
   
   pgadmin:
@@ -24,7 +26,12 @@ services:
       - PGADMIN_DEFAULT_PASSWORD=root
 
     ports: 
-      - "8080:80" 
+      - "8080:80"
+    networks:
+      - pg-network
+
+networks:
+  pg-network:
      
 
      

@@ -14,6 +14,7 @@ def main(params):
     db = params.db
     table = params.table
     url = params.url
+    zones_url = "https://s3.amazonaws.com/nyc-tlc/misc/taxi+_zone_lookup.csv"
 
     
 
@@ -29,7 +30,10 @@ def main(params):
 
     #download the csv
     os.system(f"wget {url} -O {csv_name}")
+
+    os.system(f"wget {zones_url} -O nyc_zones.csv")
     
+    df_zones = pd.read_csv("nyc_zones.csv")
     df_iter = pd.read_csv(csv_name, iterator=True, chunksize = 100000)
     df = next(df_iter)
 
@@ -41,21 +45,26 @@ def main(params):
 
     df.to_sql(name =table, index = False, con=engine, if_exists = 'append')
 
+    df_zones.to_sql(name ="zones", index = False, con=engine, if_exists = 'replace')
 
     while True:
-        start = time()
-        
-        df = next(df_iter)
-        
-        df.tpep_pickup_datetime = pd.to_datetime(df.tpep_pickup_datetime)
-        df.tpep_dropoff_datetime = pd.to_datetime(df.tpep_dropoff_datetime)
-        
-        df.to_sql(name =table, index = False, con=engine, if_exists = 'append')
+        try:
+            start = time()
+            
+            df = next(df_iter)
+            
+            df.tpep_pickup_datetime = pd.to_datetime(df.tpep_pickup_datetime)
+            df.tpep_dropoff_datetime = pd.to_datetime(df.tpep_dropoff_datetime)
+            
+            df.to_sql(name =table, index = False, con=engine, if_exists = 'append')
 
-        end = time()
+            end = time()
 
-        print(f"chunk ingetion to the the db took {end - start}")
-
+            print(f"chunk ingetion to the the db took {end - start}")
+        
+        except StopIteration:
+            print("Data Ingestion to postgress is finished")
+            break
 
 
     
