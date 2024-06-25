@@ -1,3 +1,4 @@
 week_1/docker_sql/ny_taxi_postgers_data/
+week_1/docker_sql/taxi+_zone_lookup.csv
 *.ipynb_checkpoints/
 *.vs/
