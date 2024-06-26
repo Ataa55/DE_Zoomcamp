@@ -13,7 +13,8 @@ services:
       - "D://Data//courses//Data_Engineering_Zoomcamp//week_1//docker_sql//ny_taxi_postgers_data:/var/lib/postgresql/data:rw"
     
     ports:
-      - "5432:5432"
+      - "5432:5432" #localhost port : container port
+
     networks:
       - pg-network
     
