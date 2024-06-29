@@ -24,7 +24,7 @@ def transform(data, *args, **kwargs):
     df = data
     df = df[(df["passenger_count"] > 0) & (df["trip_distance"] > 0)]
     df = df.rename(columns = {"RatecodeID":"ratecode_id","PULocationID":"pulocation_id","DOLocationID":"dolocation_id"})
-    data['lpep_pickup_date'] = pd.to_datetime(data['lpep_pickup_datetime'])
+    df['lpep_pickup_date'] = df['lpep_pickup_datetime'].dt.date
 
     print(df)
     return df
