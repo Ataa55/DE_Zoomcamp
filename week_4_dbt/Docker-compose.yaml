@@ -32,7 +32,7 @@ services:
       - pg-network
 
   dbt:
-    build: 
+    build:   #use my docker file to build this dbt image
       
       context: .
       dockerfile: Dockerfile
@@ -40,7 +40,7 @@ services:
     networks:
       - pg-network 
     
-    entrypoint: ["tail", "-f", "/dev/null"]   
+    entrypoint: ["tail", "-f", "/dev/null"]  # keep this dbt image running  
 
 networks:
   pg-network:

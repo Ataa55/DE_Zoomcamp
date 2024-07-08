@@ -1,0 +1,7 @@
+for dbt i already installed it locally with postgres adapter,
+also succesfull connect to my postgres db with dbt,
+my setup completed with docker, so i should go into the dbt container
+and start create profiles, projects.yml files which i did,
+thr problem was with the sql scripts and sources defintion, 
+working with all of this through the CLI and editor like nano is very difficult,
+so i'm just done with the setup.    
