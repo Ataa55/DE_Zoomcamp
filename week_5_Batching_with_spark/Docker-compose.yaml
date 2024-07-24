@@ -1,0 +1,8 @@
+version: "3"
+services:
+  pyspark:
+    image: "jupyter/all-spark-notebook"
+    volumes:
+      - D:\Data\courses\DE_Zoomcamp\week_5_Batching_with_spark:/home/Spark
+    ports:
+      - 8888:8888
