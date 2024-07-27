@@ -4,3 +4,7 @@ week_2_mage/mage-zoomcamp/titanic_clean.csv
 *.ipynb_checkpoints/
 *.vs/
 week_5_Batching_with_spark/data/
+week_5_Batching_with_spark/revenue/
+week_5_Batching_with_spark/fhv_tripdata_2019-10.csv
+week_5_Batching_with_spark/taxi+_zone_lookup.csv
+week_5_Batching_with_spark/homework_data/

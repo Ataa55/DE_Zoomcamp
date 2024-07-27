@@ -6,3 +6,4 @@ services:
       - D:\Data\courses\DE_Zoomcamp\week_5_Batching_with_spark:/home/Spark
     ports:
       - 8888:8888
+      - 8080:8080
